@@ -59,7 +59,7 @@ The bakery packing algorithm is an implementation of the <a href='https://en.wik
 
 Given an positive integer *W*, find a set of non-negative integers from a set *S* = {x_1, x_2, x_3, ..., x_n} with each x_n representing how often the element is used that minimizes *W*. 
 
-Find a function that minimizes *W* (*f(W)*)
+Find the minimum set *f(W)* that sums to *W*
 
 ![Equation 1](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/eq1.PNG)
 
