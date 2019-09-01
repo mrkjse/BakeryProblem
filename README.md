@@ -65,7 +65,7 @@ Find a function that minimizes *W* (*f(W)*)
 
 subject to
 
-![Equation 2](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/eq2.png)
+![Equation 2](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/eq2.PNG)
 
 This can be solved using *dynamic programming*. From Wikipedia:
 
@@ -124,11 +124,11 @@ python __init__.py
 
 3. Open your web browser and go to: http://localhost:5000/
 
-![Screenshot](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/sample1.png)
+![Screenshot](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/sample1.PNG)
 
 ## Tests
 
 A Python module called `testcases.py` is included that has some test cases for this project. To run, just open Anaconda prompt and execute the script: `python testcases.py`.
 
 
-![TestCase screenshot](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/test1.png)
+![TestCase screenshot](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/test1.PNG)
