@@ -128,7 +128,7 @@ python __init__.py
 
 ### Sample Run
 
-![Screenshot](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/sample2.PNG)
+![Screenshot](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/run1.PNG)
 
 
 ## Tests
