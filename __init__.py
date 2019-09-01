@@ -33,19 +33,6 @@ def handle_error(e):
 app.register_error_handler(404, handle_error)
 app.register_error_handler(500, handle_error)
 
-def default_converter(o):
-    if isinstance(o, datetime.datetime):
-        return o.__str__()
- 
-
-def flash_errors(form):
-    for field, errors in form.errors.items():
-        for error in errors:
-            flash(u"Error in the %s field - %s" % (
-                getattr(form, field).label.text,
-                error
-            ))
-
 
 ### VIEWS ###
 @app.route("/", methods=['GET', 'POST'])
@@ -64,20 +51,27 @@ def hello():
 
     # Display the web form view
     if request.method == 'GET':  
-        form = ReusableForm(request.form)   
+        # Load the form
+        form = ReusableForm(request.form) 
+
+        # Load the view  
         return render_template('index.html', form=form, data=bakery_data)
     elif request.method == 'POST':
 
+        # Retrieve the string input
         bakery_orders = request.form['bakeryOrder']
 
+        # Try to process the string input (order) per line
         orders = bakery_orders.split('\n')
         orders = [s.strip('\r') for s in orders]
         results = [order_product(s) for s in orders]
 
+        # Format output
         form = ReusableForm(request.form)
         form.bakeryOrder.data = bakery_orders
         form.bakeryOutput.data = '\n'.join(results)
 
+        # Load the view
         return render_template('index.html', form=form, data=bakery_data)
 
 if __name__ == "__main__":

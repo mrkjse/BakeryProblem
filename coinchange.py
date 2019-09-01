@@ -12,32 +12,32 @@ YouTube video of the explanation: https://www.youtube.com/watch?v=EScqJEEKC10
 
 def change(n, coins_available, coins_so_far):
     """
-    
+
     An implementation of the bakery packing algorithm/coin changing algorithm 
     using dynamic programming.
 
     This method generates all the possible set that can be produced 
     using the elements in coins_available and will return the set 
     if it sums to n.
-    
+
     Running this requires that the elements in coins_available are in ascending 
     order to be able to come up with the optimal set (coins_so_far).
 
     """
 
     # Check if the coins in coins_so_far sums to n
-	if sum(coins_so_far) == n:
-		yield coins_so_far
-	elif sum(coins_so_far) > n:
-		pass
-	elif coins_available == []:
-		pass
-	else:
+    if sum(coins_so_far) == n:
+        yield coins_so_far
+    elif sum(coins_so_far) > n:
+        pass
+    elif coins_available == []:
+        pass
+    else:
         # Retrieve another coin (element) in coins_available
-		for c in change(n, coins_available[:], coins_so_far + [coins_available[0]]):
-			yield c
-		for c in change(n, coins_available[1:], coins_so_far):
-			yield c
+        for c in change(n, coins_available[:], coins_so_far + [coins_available[0]]):
+            yield c
+        for c in change(n, coins_available[1:], coins_so_far):
+            yield c
 
 def generate_data(product):
     """
