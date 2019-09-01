@@ -53,16 +53,82 @@ A successfully passing test(s) that demonstrates the following output:
 
 
 
+## Bakery Packing Algorithm
+
+The bakery packing algorithm is an implementation of the <a href='https://en.wikipedia.org/wiki/Change-making_problem'>coin change algorithm</a>. 
+
+Given an positive integer *W*, find a set of non-negative integers from a set *S* = {x_1, x_2, x_3, ..., x_n} with each x_n representing how often the element is used that minimizes *W*. 
+
+Find a function that minimizes *W* (*f(W)*)
+
+![Equation 1](eq1.png)
+
+subject to
+
+![Equation 2](eq2.png)
+
+This can be solved using *dynamic programming*. From Wikipedia:
+
+
+> A classic dynamic programming strategy works upward by finding the combinations of **all smaller values that would sum to the current threshold.**[3] Thus, at each threshold, all previous thresholds are potentially considered to work upward to the goal amount W. For this reason, this dynamic programming approach may require a number of steps that is at least quadratic in the goal amount W.
+
+
+But the elements in set *S* should be placed in an ascending order.
+
+### Example
+
+Given *W = 15*, find *f(W)* from *S* = {3, 5, 10}.
+
+The goal is to find the *smallest* set with elements only coming from *S* that would add up to *W*.
+
+Using dynamic programming will yield the following solution:
+
+```python
+Given:
+W = 15
+S = [3, 5, 10]
+
+Result:
+[3] = [3, 3, 3, 3, 3]
+[3, 5] = None
+[3, 5, 10] = None
+
+[5] = [5, 5, 5]
+[5, 10] = [5, 10]
+
+[10] = None
+
+Optimal Solution: [5, 10] with only 2 elements.
+```
+
+
+
 ## Deployment Steps
 
-### Pre-requisites
+### Prerequisites
+This project is written in Python 3 and is programmed to run using Anaconda. You can download the latest version (with Python 3) <a href='https://www.anaconda.com/distribution/#download-section'> here.</a>
 
+### Launching Steps
+
+1. Open Anaconda prompt
+2. Type the following commands:
+
+```python
+# Replace 'H:\BakeryProblem\environment.yml' with your own directory
+conda env create -f H:\BakeryProblem\environment.yml
+# If the warning '==> WARNING: A newer version of conda exists. <==' appears, press Enter
+conda activate py4web2019
+pushd H:\BakeryProblem\
+python __init__.py
+```
+
+3. Open your web browser and go to: http://localhost:5000/
+
+![Screenshot](sample1.png)
 
 ## Tests
 
+A Python module called `testcases.py` is included that has some test cases for this project. To run, just open Anaconda prompt and execute the script: `python testcases.py`.
 
 
-## UI
-
-
-
+![TestCase screenshot](test1.png)

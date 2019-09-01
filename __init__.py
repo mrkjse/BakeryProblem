@@ -16,6 +16,12 @@ app.config['SECRET_KEY'] = 'this is my secret key'
 
  ### ERROR HANDLERS ###
 def handle_error(e):
+    """
+
+    Displays a default Error view if the app encounters an error.
+
+    """
+
     try:
         if e.description is not None:
             error = {}
@@ -45,10 +51,18 @@ def flash_errors(form):
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/index", methods=['GET', 'POST'])
 def hello():
+    """
+    
+    Initializes the FLASK app.
+
+    """
+
+    # Generate the table menu 
     bakery_goods = generate_data('')
     bakery_goods.drop(columns=['Quantity'], inplace=True)
     bakery_data = bakery_goods.to_dict(orient='records')
 
+    # Display the web form view
     if request.method == 'GET':  
         form = ReusableForm(request.form)   
         return render_template('index.html', form=form, data=bakery_data)
