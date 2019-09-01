@@ -126,6 +126,11 @@ python __init__.py
 
 ![Screenshot](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/sample1.PNG)
 
+### Sample Run
+
+![Screenshot](https://raw.githubusercontent.com/mrkjse/BakeryProblem/master/sample2.PNG)
+
+
 ## Tests
 
 A Python module called `testcases.py` is included that has some test cases for this project. To run, just open Anaconda prompt and execute the script: `python testcases.py`.
