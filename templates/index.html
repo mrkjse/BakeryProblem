@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <title>Bakery Order Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Include BootStrap -->
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" media="screen" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="static/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" media="screen" href="static/style.css">
+
+    <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+    <!--Font Awesome (added because you use icons in your prepend/append)-->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    <!-- Inline CSS based on choices in "Settings" tab -->
+    <style>
+        .bootstrap-iso .formden_header h2,
+        .bootstrap-iso .formden_header p,
+        .bootstrap-iso form {
+            font-family: Arial, Helvetica, sans-serif;
+            color: black
+        }
+
+        .bootstrap-iso form button,
+        .bootstrap-iso form button:hover {
+            color: white !important;
+        }
+
+        .asteriskField {
+            color: red;
+        }
+
+        textarea {
+            height: 150px;
+
+        }
+
+
+    </style>
+
+    <script>
+                $(document).ready(function() {
+                    $("#submitForm").click(function() {
+                        $.blockUI({ message: $('#message'), css:{ width:512, height:384, cursor:'default' }});
+                  });
+    });
+
+    </script>
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+   
+
+</head>
+
+<body>
+    <!-- Title -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="">Bakery Order Form</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+    </nav>
+    
+
+    <div class="container">
+
+        <h4> Select from the table menu and place your order on the form below </h4> 
+        <br/>
+
+        <!-- Javascript Table of orders here -->
+        <div class="card">
+            <div class="card-body">
+                    <table id="example" class="table table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Product Code</th>
+                                <th>Pack Size</th>
+                                <th>Price (in AUD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set i = 1 %}
+                            {% for item in data %}
+                            <tr>
+                                <td>{{item['Name']}}</td>
+                                <td>{{item['ProductCode']}}</td>
+                                <td>{{item['Size']}}</td>
+                                <td>{{item['Price']}}</td>
+                            </tr>
+                            {% set i = i + 1 %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        <br/>
+        <form action="" method="post" role="form">
+                {{ form.csrf }}
+        <div class="form-group">
+            <div class="card">
+                <div class="card-header text-white bg-dark">
+                    Order Here
+                </div>
+                <div class="card-body">
+                    <label for="bakeryOrder" class="col-md-7">{{form.bakeryOrder.label}}</label>
+                    <div class="col-md-7">
+                            {{ form.bakeryOrder(class_="form-control", id="bakeryOrder") }}
+                    </div>
+                  
+                </div>
+
+                <div class="card-body">
+                    <div class="col-md-1"> </div>
+                    <div class="col-md-5">
+                            <button type="submit" class="btn btn-success btn-lg col-md-3" id="submitForm">Process</button>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <label for="bakeryOutput" class="col-md-7">{{form.bakeryOutput.label}}</label>
+                    <div class="col-md-7">
+                            {{ form.bakeryOutput(class_="form-control", id="bakeryOrder") }}
+                    </div>
+                    <br/> 
+                </div>
+
+              
+            </div>
+        </div>
+        </form>
+    <br>
+    <br>
+    <br>
+    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal" data-inc="none">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Incident</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your incident?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id ="deleteButton" class="btn btn-primary" data-inc="none" data-toggle="modal" data-target="#deleteSuccessModal">Delete Incident</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+      <div class="modal fade" tabindex="-1" role="dialog" id="deleteSuccessModal" data-inc="none">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Incident</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Incident deleted successfully.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary trigger-reload" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+       <div class="modal fade" tabindex="-1" role="dialog" id="editGuideModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Incident</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>To edit an incident, go to <b><u>Home</u></b> then click <b>[Edit]</b> from the options column.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary trigger-reload" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" tabindex="-1" role="dialog" id="detailGuideModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">View Incident Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>To view an incident's details, go to <b><u>Home</u></b> then click <b>[Detail]</b> from the options column.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary trigger-reload" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "pageLength": 25,
+            "info": false,
+            "order": [[ 1, "desc" ]],
+            "columns": [
+                    { "width": "15%" },
+                    null,
+                    { "width": "13%" },
+                    { "width": "10%" },
+                    null,
+                    { "width": "15%" }
+                  ]
+        });
+        
+        $(this).scrollTop(0);
+
+        $('a.delete').click(function(){
+            var incNum = $(this).data('inc');
+            $("#exampleModal .modal-title").text('Delete Incident ' + incNum)
+            $("#exampleModal .modal-body").text('Are you sure you want to delete incident ' + incNum + '?');
+            $("#exampleModal").attr("data-inc",incNum);
+            $("#deleteButton").attr("data-inc",incNum);
+        });
+
+        $('#deleteButton').click(function(){
+            var incNum = $(this).data('inc');
+            var url = "http://localhost:5000/delete/" + incNum;
+            console.log("Call delete POST " +  incNum)
+            
+            $.post(url, {data_inc: incNum}, function(data){
+                console.log(data)
+                $("#exampleModal").modal('hide');
+                $("#deleteSuccessModal .modal-body").text('Incident ' + incNum + ' deleted successfully.');
+                $("#deleteSuccessModal").modal('show');
+                console.log('Deleted!');
+            }).fail(function(){
+                alert('Error in deleting the record.');
+            
+            });
+        });
+        
+        $('.trigger-reload').click(function(){
+            location.reload();
+        });
+
+        
+
+    });
+</script>
+
+</html>

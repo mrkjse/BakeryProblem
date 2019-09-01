@@ -1,0 +1,6 @@
+need to minify these when deploying:
+
+1. replace 'localhost:5000' with the server's ip '10.3.100.188:5000'
+2. go to https://javascript-minifier.com/
+3. for each file, paste the js code. Click Download as File. A file called 'code.min.js' will be generated.
+4. rename that 'registration.min.js' or 'edit.min.js' depending on the minified file

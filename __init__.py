@@ -1,0 +1,70 @@
+from flask import Flask, render_template, flash, request, jsonify
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField, SelectField, RadioField, DateField
+import json
+from forms.reusableform import ReusableForm
+from sqlalchemy import create_engine, text
+import datetime
+from coinchange import pack_product, order_product, generate_data
+
+# App config.
+#DEBUG = True
+app = Flask(__name__)
+app.config.from_object(__name__)
+app.config['SECRET_KEY'] = 'this is my secret key'
+
+
+
+ ### ERROR HANDLERS ###
+def handle_error(e):
+    try:
+        if e.description is not None:
+            error = {}
+            error["message"] = e.description
+    except:
+        error = e
+    return render_template('error.html', error=error)
+
+app.register_error_handler(404, handle_error)
+app.register_error_handler(500, handle_error)
+
+def default_converter(o):
+    if isinstance(o, datetime.datetime):
+        return o.__str__()
+ 
+
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u"Error in the %s field - %s" % (
+                getattr(form, field).label.text,
+                error
+            ))
+
+
+### VIEWS ###
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/index", methods=['GET', 'POST'])
+def hello():
+    bakery_goods = generate_data('')
+    bakery_goods.drop(columns=['Quantity'], inplace=True)
+    bakery_data = bakery_goods.to_dict(orient='records')
+
+    if request.method == 'GET':  
+        form = ReusableForm(request.form)   
+        return render_template('index.html', form=form, data=bakery_data)
+    elif request.method == 'POST':
+
+        bakery_orders = request.form['bakeryOrder']
+
+        orders = bakery_orders.split('\n')
+        orders = [s.strip('\r') for s in orders]
+        results = [order_product(s) for s in orders]
+
+        form = ReusableForm(request.form)
+        form.bakeryOrder.data = bakery_orders
+        form.bakeryOutput.data = '\n'.join(results)
+
+        return render_template('index.html', form=form, data=bakery_data)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)

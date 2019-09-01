@@ -1,0 +1,15 @@
+name: py4web2019
+channels:
+  - defaults
+dependencies:
+  - flask
+  - markupsafe=1.0=py35hfa6e2cd_1
+  - python=3.5
+  - SQLAlchemy
+  - WTForms
+  - pandas
+  - pyodbc
+  - urllib3
+  - pip
+    
+

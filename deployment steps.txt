@@ -1,0 +1,13 @@
+# To deploy into a new environment
+# Ensure that you have Anaconda installed
+1. Open Anaconda Prompt
+2. Type in the following commands:
+	# Replace 'H:\BakeryProblem\environment.yml' with your own directory
+	conda env create -f H:\BakeryProblem\environment.yml
+	# If the warning '==> WARNING: A newer version of conda exists. <==' appears, press Enter
+	conda activate py4web2019
+	pushd H:\BakeryProblem\
+	python __init__.py
+3. Open your web browser and go to: http://localhost:5000/
+
+
